@@ -111,12 +111,29 @@ https://notes.watchpug.com/p/18f13f46b9eE_mgb
 
 *For sponsors that don't use the scoping tool: list all files in scope in the table below (along with hyperlinks) -- and feel free to add notes to emphasize areas of focus.*
 
-| Contract | SLOC | Purpose | Libraries used |  
-| ----------- | ----------- | ----------- | ----------- |
-| [contracts/folder/sample.sol](https://github.com/code-423n4/repo-name/blob/contracts/folder/sample.sol) | 123 | This contract does XYZ | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
+| File   | Logic Contracts | Interfaces | SLOC  | Purpose | Libraries used |
+| ------ | --------------- | ---------- | ----- | -----   | ------------ |
+| /src/PrelaunchPoints.sol | 1| **** | 296 | |@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol<br>@openzeppelin/contracts/utils/math/Math.sol|
+| **Totals** | **1** | **** | **296** | | |
 
 ### Files out of scope
 ✅ SCOUTS: List files/directories out of scope
+
+*See [out_of_scope.txt](https://github.com/code-423n4/2024-05-loop/blob/main/out_of_scope.txt)*
+
+| File         |
+| ------------ |
+| ./script/PrelaunchPoints.s.sol |
+| ./src/interfaces/ILpETH.sol |
+| ./src/interfaces/ILpETHVault.sol |
+| ./src/interfaces/IWETH.sol |
+| ./src/mock/AttackContract.sol |
+| ./src/mock/MockERC20.sol |
+| ./src/mock/MockLRT.sol |
+| ./src/mock/MockLpETH.sol |
+| ./src/mock/MockLpETHVault.sol |
+| ./test/PrelaunchPoints.t.sol |
+| Totals: 10 |
 
 ## Scoping Q &amp; A
 
@@ -279,71 +296,4 @@ make gas
 ✅ SCOUTS: Add a screenshot of your terminal showing the test coverage
 
 ## Miscellaneous
-Employees of [SPONSOR NAME] and employees' family members are ineligible to participate in this audit.
-
-
-
-
-
-# Scope
-
-*See [scope.txt](https://github.com/code-423n4/2024-05-loop/blob/main/scope.txt)*
-
-### Files in scope
-
-
-| File   | Logic Contracts | Interfaces | SLOC  | Purpose | Libraries used |
-| ------ | --------------- | ---------- | ----- | -----   | ------------ |
-| /src/PrelaunchPoints.sol | 1| **** | 296 | |@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol<br>@openzeppelin/contracts/utils/math/Math.sol|
-| **Totals** | **1** | **** | **296** | | |
-
-### Files out of scope
-
-*See [out_of_scope.txt](https://github.com/code-423n4/2024-05-loop/blob/main/out_of_scope.txt)*
-
-| File         |
-| ------------ |
-| ./script/PrelaunchPoints.s.sol |
-| ./src/interfaces/ILpETH.sol |
-| ./src/interfaces/ILpETHVault.sol |
-| ./src/interfaces/IWETH.sol |
-| ./src/mock/AttackContract.sol |
-| ./src/mock/MockERC20.sol |
-| ./src/mock/MockLRT.sol |
-| ./src/mock/MockLpETH.sol |
-| ./src/mock/MockLpETHVault.sol |
-| ./test/PrelaunchPoints.t.sol |
-| Totals: 10 |
-
-
-
-# Scope
-
-*See [scope.txt](https://github.com/code-423n4/2024-05-loop/blob/main/scope.txt)*
-
-### Files in scope
-
-
-| File   | Logic Contracts | Interfaces | SLOC  | Purpose | Libraries used |
-| ------ | --------------- | ---------- | ----- | -----   | ------------ |
-| /src/PrelaunchPoints.sol | 1| **** | 296 | |@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol<br>@openzeppelin/contracts/utils/math/Math.sol|
-| **Totals** | **1** | **** | **296** | | |
-
-### Files out of scope
-
-*See [out_of_scope.txt](https://github.com/code-423n4/2024-05-loop/blob/main/out_of_scope.txt)*
-
-| File         |
-| ------------ |
-| ./script/PrelaunchPoints.s.sol |
-| ./src/interfaces/ILpETH.sol |
-| ./src/interfaces/ILpETHVault.sol |
-| ./src/interfaces/IWETH.sol |
-| ./src/mock/AttackContract.sol |
-| ./src/mock/MockERC20.sol |
-| ./src/mock/MockLRT.sol |
-| ./src/mock/MockLpETH.sol |
-| ./src/mock/MockLpETHVault.sol |
-| ./test/PrelaunchPoints.t.sol |
-| Totals: 10 |
-
+Employees of LoopFi and employees' family members are ineligible to participate in this audit.
