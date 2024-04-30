@@ -28,7 +28,7 @@ _Note for C4 wardens: Anything included in this `Automated Findings / Publicly K
 
 # LoopFi Prelaunch Point Contracts
 
-![](./img/icon-loop.png)
+![](./img/icon-loop.png?raw=true)
 
 ## Description
 
