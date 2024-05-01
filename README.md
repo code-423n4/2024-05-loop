@@ -1,5 +1,5 @@
 
-# Loop audit details
+# LoopFi audit details
 - Total Prize Pool: $12,100 in USDC
   - HM awards: $8,640 in USDC
   - QA awards: $360 in USDC 
