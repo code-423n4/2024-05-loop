@@ -192,9 +192,9 @@ To get some metrics pre-audit, run
 yarn solidity-code-metrics src/PrelaunchPoints.sol > metrics.md
 ```
 ![Screenshot from 2024-04-30 17-39-45](https://github.com/code-423n4/2024-05-loop/blob/main/screenshot_1.png?raw=true)
-![Screenshot from 2024-04-30 17-40-08](https://github.com/code-423n4/2024-05-loop/blob/main/screenshot_2.jpg?raw=true)
-![Screenshot from 2024-04-30 17-40-23](https://github.com/code-423n4/2024-05-loop/blob/main/screenshot_3.jpg?raw=true)
-![Screenshot from 2024-04-30 17-38-53](https://github.com/code-423n4/2024-05-loop/blob/main/screenshot_4.jpg?raw=true)
+![Screenshot from 2024-04-30 17-40-08](https://github.com/code-423n4/2024-05-loop/blob/main/screenshot_2.png?raw=true)
+![Screenshot from 2024-04-30 17-40-23](https://github.com/code-423n4/2024-05-loop/blob/main/screenshot_3.png?raw=true)
+![Screenshot from 2024-04-30 17-38-53](https://github.com/code-423n4/2024-05-loop/blob/main/screenshot_4.png?raw=true)
 
 ## Miscellaneous
 Employees of LoopFi and employees' family members are ineligible to participate in this audit.
