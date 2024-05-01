@@ -95,7 +95,7 @@ See [scope.txt](https://github.com/code-423n4/2024-05-loop/blob/main/scope.txt)
 | Question                                | Answer                       |
 | --------------------------------------- | ---------------------------- |
 | ERC20 used by the protocol              |    WETH, weETH, ezETH, rsETH, rswETH, uniETH, pufETH            |
-| Test coverage                           | 74.07%                          |
+| Test coverage                           | 78.95%                          |
 | ERC721 used  by the protocol            |            None              |
 | ERC777 used by the protocol             |           None                |
 | ERC1155 used by the protocol            |              None            |
