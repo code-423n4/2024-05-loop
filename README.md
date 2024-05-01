@@ -7,7 +7,7 @@
   - Validator awards: $1,000 in USDC 
   - Scout awards: $500 in USDC
 - Join [C4 Discord](https://discord.gg/code4rena) to register
-- Submit findings [using the C4 form](https://code4rena.com/contests/2024-05-loop/submit)
+- Submit findings [using the C4 form](https://code4rena.com/audits/2024-05-loopfi/submit)
 - [Read our guidelines for more details](https://docs.code4rena.com/roles/wardens)
 - Starts May 1, 2024 20:00 UTC
 - Ends May 8, 2024 20:00 UTC
