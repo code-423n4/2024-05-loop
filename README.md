@@ -22,6 +22,7 @@ _Note for C4 wardens: Anything included in this `Automated Findings / Publicly K
 
 - Crafting malicious calldata so that users get less funds as expected when claiming lpETH on LRT deposits (e.g. by setting big slippage/price impact)
 - Owner setting malicious lpETH and lpETHVault contracts. Users have 7 days to withdraw in that case.
+- Previous audit findings are out of scope.
 
 
 # Overview
