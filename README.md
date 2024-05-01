@@ -133,11 +133,9 @@ None
 ## All trusted roles in the protocol
 
 
-✅ SCOUTS: Please format the response above 👆 using the template below👇
-
 | Role                                | Description                       |
 | --------------------------------------- | ---------------------------- |
-| Owner                          | Has superpowers                |
+| Owner                          | Has access to privileged functions, contract owner             |
 
 
 ## Describe any novel or unique curve logic or mathematical models implemented in the contracts:
