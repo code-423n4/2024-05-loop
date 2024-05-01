@@ -191,10 +191,10 @@ To get some metrics pre-audit, run
 ```
 yarn solidity-code-metrics src/PrelaunchPoints.sol > metrics.md
 ```
-![Screenshot from 2024-04-30 17-39-45](https://github.com/code-423n4/2024-05-loop/assets/65364747/c7a76720-d7fd-4cf5-a8d2-1b9601df76c5)
-![Screenshot from 2024-04-30 17-40-08](https://github.com/code-423n4/2024-05-loop/assets/65364747/84b0b2b2-fd92-4d89-9921-f2ea89a4be45)
-![Screenshot from 2024-04-30 17-40-23](https://github.com/code-423n4/2024-05-loop/assets/65364747/25b70dee-b0cb-4417-9209-0b1d5c1e33b5)
-![Screenshot from 2024-04-30 17-38-53](https://github.com/code-423n4/2024-05-loop/assets/65364747/56eff9d2-4eb5-4174-a380-f86697c7d6b4)
+![Screenshot from 2024-04-30 17-39-45](https://github.com/code-423n4/2024-05-loop/assets/65364747/c7a76720-d7fd-4cf5-a8d2-1b9601df76c5?raw=true)
+![Screenshot from 2024-04-30 17-40-08](https://github.com/code-423n4/2024-05-loop/assets/65364747/84b0b2b2-fd92-4d89-9921-f2ea89a4be45?raw=true)
+![Screenshot from 2024-04-30 17-40-23](https://github.com/code-423n4/2024-05-loop/assets/65364747/25b70dee-b0cb-4417-9209-0b1d5c1e33b5?raw=true)
+![Screenshot from 2024-04-30 17-38-53](https://github.com/code-423n4/2024-05-loop/assets/65364747/56eff9d2-4eb5-4174-a380-f86697c7d6b4?raw=true)
 
 ## Miscellaneous
 Employees of LoopFi and employees' family members are ineligible to participate in this audit.
