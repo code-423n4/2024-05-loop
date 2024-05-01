@@ -61,16 +61,18 @@ contract PrelaunchPoints {
     event Recovered(address token, uint256 amount);
     event OwnerUpdated(address newOwner);
     event LoopAddressesUpdated(address loopAddress, address vaultAddress);
-    event SwappedTokens(address sellToken, uint256 buyETHAmount);
+    event SwappedTokens(address sellToken, uint256 sellAmount, uint256 buyETHAmount);
 
     /*//////////////////////////////////////////////////////////////
                                  ERRORS
     //////////////////////////////////////////////////////////////*/
 
+    error InvalidToken();
     error NothingToClaim();
     error TokenNotAllowed();
     error CannotLockZero();
     error CannotWithdrawZero();
+    error UseClaimInstead();
     error FailedToSendEther();
     error SwapCallFailed();
     error WrongSelector(bytes4 selector);
@@ -89,6 +91,7 @@ contract PrelaunchPoints {
     //////////////////////////////////////////////////////////////*/
     /**
      * @param _exchangeProxy address of the 0x protocol exchange proxy
+     * @param _wethAddress   address of WETH
      * @param _allowedTokens list of token addresses to allow for locking
      */
     constructor(address _exchangeProxy, address _wethAddress, address[] memory _allowedTokens) {
@@ -138,6 +141,9 @@ contract PrelaunchPoints {
      * @param _referral  info of the referral. This value will be processed in the backend.
      */
     function lock(address _token, uint256 _amount, bytes32 _referral) external {
+        if (_token == ETH) {
+            revert InvalidToken();
+        }
         _processLock(_token, _amount, msg.sender, _referral);
     }
 
@@ -149,6 +155,9 @@ contract PrelaunchPoints {
      * @param _referral  info of the referral. This value will be processed in the backend.
      */
     function lockFor(address _token, uint256 _amount, address _for, bytes32 _referral) external {
+        if (_token == ETH) {
+            revert InvalidToken();
+        }
         _processLock(_token, _amount, _for, _referral);
     }
 
@@ -169,7 +178,7 @@ contract PrelaunchPoints {
         }
         if (_token == ETH) {
             totalSupply = totalSupply + _amount;
-            balances[_receiver][ETH] = balances[_receiver][_token] + _amount;
+            balances[_receiver][ETH] += _amount;
         } else {
             if (!isTokenAllowed[_token]) {
                 revert TokenNotAllowed();
@@ -179,9 +188,9 @@ contract PrelaunchPoints {
             if (_token == address(WETH)) {
                 WETH.withdraw(_amount);
                 totalSupply = totalSupply + _amount;
-                balances[_receiver][ETH] = balances[_receiver][_token] + _amount;
+                balances[_receiver][ETH] += _amount;
             } else {
-                balances[_receiver][_token] = balances[_receiver][_token] + _amount;
+                balances[_receiver][_token] += _amount;
             }
         }
 
@@ -245,19 +254,19 @@ contract PrelaunchPoints {
             _validateData(_token, userClaim, _exchange, _data);
             balances[msg.sender][_token] = userStake - userClaim;
 
+            // At this point there should not be any ETH in the contract
             // Swap token to ETH
-            uint256 totalETH = address(this).balance;
             _fillQuote(IERC20(_token), userClaim, _data);
-            claimedAmount = address(this).balance - totalETH;
 
             // Convert swapped ETH to lpETH (1 to 1 conversion)
+            claimedAmount = address(this).balance;
             lpETH.deposit{value: claimedAmount}(_receiver);
         }
         emit Claimed(msg.sender, _token, claimedAmount);
     }
 
     /**
-     * @dev Called by a staker to withdraw all their ETH
+     * @dev Called by a staker to withdraw all their ETH or LRT
      * Note Can only be called after the loop address is set and before claiming lpETH,
      * i.e. for at least TIMELOCK. In emergency mode can be called at any time.
      * @param _token      Address of the token to withdraw
@@ -279,6 +288,9 @@ contract PrelaunchPoints {
             revert CannotWithdrawZero();
         }
         if (_token == ETH) {
+            if (block.timestamp >= startClaimDate){
+                revert UseClaimInstead();
+            }
             totalSupply = totalSupply - lockedAmount;
 
             (bool sent,) = msg.sender.call{value: lockedAmount}("");
@@ -300,7 +312,7 @@ contract PrelaunchPoints {
     /**
      * @dev Called by a owner to convert all the locked ETH to get lpETH
      */
-    function convertAllETH() external onlyAuthorized {
+    function convertAllETH() external onlyAuthorized onlyBeforeDate(startClaimDate) {
         if (block.timestamp - loopActivation <= TIMELOCK) {
             revert LoopNotActivated();
         }
@@ -402,16 +414,23 @@ contract PrelaunchPoints {
             if (selector != UNI_SELECTOR) {
                 revert WrongSelector(selector);
             }
+            // UniswapV3Feature.sellTokenForEthToUniswapV3(encodedPath, sellAmount, minBuyAmount, recipient) requires `encodedPath` to be a Uniswap-encoded path, where the last token is WETH, and sends the NATIVE token to `recipient`
+            if (outputToken != address(WETH)) {
+                revert WrongDataTokens(inputToken, outputToken);
+            }
         } else if (_exchange == Exchange.TransformERC20) {
             (inputToken, outputToken, inputTokenAmount, selector) = _decodeTransformERC20Data(_data);
             if (selector != TRANSFORM_SELECTOR) {
                 revert WrongSelector(selector);
             }
+            if (outputToken != ETH) {
+                revert WrongDataTokens(inputToken, outputToken);
+            }
         } else {
             revert WrongExchange();
         }
 
-        if (inputToken != _token || (outputToken != ETH && outputToken != address(WETH))) {
+        if (inputToken != _token) {
             revert WrongDataTokens(inputToken, outputToken);
         }
         if (inputTokenAmount != _amount) {
@@ -482,7 +501,7 @@ contract PrelaunchPoints {
 
         // Use our current buyToken balance to determine how much we've bought.
         boughtETHAmount = address(this).balance - boughtETHAmount;
-        emit SwappedTokens(address(_sellToken), boughtETHAmount);
+        emit SwappedTokens(address(_sellToken), _amount, boughtETHAmount);
     }
 
     /*//////////////////////////////////////////////////////////////
