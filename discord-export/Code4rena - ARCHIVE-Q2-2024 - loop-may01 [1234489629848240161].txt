@@ -1,0 +1,1689 @@
+==============================================================
+Guild: Code4rena
+Channel: ARCHIVE-Q2-2024 / loop-may01
+==============================================================
+
+[04/30/2024 12:20] kartoonjoy (pinned)
+👋 Hello and welcome to the audit channel for the $12,100 in USDC **LoopFi** audit!
+
+📆 Audit opens 05/01/2024 20:00 (20:00 UTC) and runs through 05/08/2024 20:00 (20:00 UTC) (7 days).
+
+Please give a warm welcome to the LoopFi team, particularly @Tenet and @0xd4n1el, who will be available for questions either here in the channel or via a **PRIVATE** thread in the CET timezone(s). 
+
+We'll be posting relevant links, documentation, etc. here, so if you intend to participate in this audit, consider enabling notifications for this channel. 🐺 ⏰
+
+Audit Page: https://code4rena.com/audits/2024-05-loopfi#top
+Docs Wolf: https://discord.com/channels/810916927919620096/1235320389760979054/1235320391019401366
+
+
+[04/30/2024 12:20] kartoonjoy
+Pinned a message.
+
+
+[05/01/2024 13:05] kartoonjoy (pinned)
+🚨This 296 SLOC audit will be followed by a much larger follow-on competition related to this scope, happening roughly 4 weeks later. Validators and judge selected for this initial audit will be given first dibs on the follow-on audit, on the condition of satisfactory performance.
+
+
+[05/01/2024 13:05] kartoonjoy
+Pinned a message.
+
+
+[05/01/2024 20:02] C4 (pinned)
+**Automated Findings / Publicly Known Issues**
+
+Reminder: all [Automated Findings / Publicly Known Issues](https://github.com/code-423n4/2024-05-loop#automated-findings--publicly-known-issues) are out of scope and ineligible for awards.
+
+{Embed}
+https://github.com/code-423n4/2024-05-loop
+GitHub - code-423n4/2024-05-loop
+Contribute to code-423n4/2024-05-loop development by creating an account on GitHub.
+Code4rena - ARCHIVE-Q2-2024 - loop-may01 [1234489629848240161].txt_Files/cf95abe2-acee-4af0-a162-aad606d6ee45-16C5C
+
+
+[05/01/2024 20:02] knownfactc4_29311
+Pinned a message.
+
+
+[05/01/2024 20:02] knownfactc4_29311
+Started a thread.
+
+
+[05/01/2024 20:19] 0xfox_
+The pages for the previous audits aren't loading for me, can anyone confirm if it's just me?
+
+
+[05/01/2024 20:26] knownfactc4_29311
+They look to be loading fine from my side at least:
+
+{Attachments}
+Code4rena - ARCHIVE-Q2-2024 - loop-may01 [1234489629848240161].txt_Files/loop_prev_1-918A2.JPG
+Code4rena - ARCHIVE-Q2-2024 - loop-may01 [1234489629848240161].txt_Files/loop_prev_2-370FA.JPG
+
+{Reactions}
+👍 
+
+[05/01/2024 20:26] 0xfox_
+yup it was a browser extension
+
+
+[05/01/2024 20:26] 0xfox_
+thank you
+
+
+[05/01/2024 22:18] mosharaf
+how points are calculated ?
+
+
+[05/01/2024 22:19] mosharaf
+and how its tracked ?
+
+
+[05/01/2024 22:35] zdravkohr
+Which tokens can be the lpETH
+
+
+[05/02/2024 05:21] ironsidesec
+https://github.com/code-423n4/2024-05-loop#description
+
+
+[05/02/2024 05:35] Deleted User
+the previous audit issues are fixed?
+
+
+[05/02/2024 05:36] mosharaf
+Yeah.  Fix is applied
+
+
+[05/02/2024 06:42] vikqaz
+Can anyone please explain this point?
+
+`Users that deposit LRTs get the correct amount assuming a favorable swap to ETH`
+
+
+[05/02/2024 06:45] tenetloop
+points are tracked by a backend
+
+
+[05/02/2024 06:46] vikqaz
+Publicly known issues:
+`Crafting malicious calldata so that users get less funds as expected when claiming lpETH on LRT deposits (e.g. by setting big slippage/price impact)`
+
+VS
+
+Attack Ideas:
+`Malicious 0x protocol calldata crafting by users to steal funds on claim`
+
+It is bit confusing (for me)? What am I missing?
+
+
+[05/02/2024 06:50] vikqaz
+@Tenet
+
+
+[05/02/2024 07:28] vikqaz
+There is a 7 days gap between Epoch1 and Epoch2? or is it part of any one of these Epochs? @Tenet
+
+
+[05/02/2024 07:33] mosharaf
+Based on event emission?
+
+{Reactions}
+✅ 
+
+[05/02/2024 07:51] 0xd4n1el
+LRTs get swapped via 0x into ETH which is then converted to lpETH in the lpETH contract. The swap in 0x is assumed to be fair to the user since they check in the frontend the quoted values before submitting the tx
+
+
+[05/02/2024 07:53] 0xd4n1el
+So here we assume the frontend is not compromised in such a way users loose money because of slippage. The attack idea is to see if there is a way to a third party to submit calldata to steal users funds
+
+
+[05/02/2024 07:54] 0xd4n1el
+Yes, during the gap, deposits are locked and withdrawals allowed
+
+
+[05/02/2024 07:55] 0xd4n1el
+lpETH will be an ERC20 token, with conversion 1 to 1 to ETH. It is not rebasing or interest bearing unless you stake it
+
+
+[05/02/2024 08:05] .justuzair
+how can one check `claim` for erc20s?
+
+
+[05/02/2024 08:05] .justuzair
+we dont know what the bytes data will look like
+
+
+[05/02/2024 09:06] davies_0212
+Hi, @Tenet @0xd4n1el. Depositors, who locked `weETH, ezETH, rsETH, rswETH, uniETH, pufETH` not `ETH, WETH`, get `lpETH` by only 1 to 1 rate?
+
+
+[05/02/2024 09:15] vahdrak1
+In the previous audit report, WP-C1 meant critical?
+
+So what does WP-I5 mean? invalid?
+What about WP-N8?
+
+
+[05/02/2024 09:26] 0xd4n1el
+That's why there is data validation
+
+
+[05/02/2024 09:27] 0xd4n1el
+No, they get their LRT swapped to ETH first and then 1 to 1 conversion to lpETH
+
+
+[05/02/2024 09:27] 0xd4n1el
+C: critical, I: informational, N: note
+
+{Reactions}
+🆗 
+
+[05/02/2024 09:28] liffidmonky
+@Tenet @0xd4n1el , are all issues in previous audits fixed?
+
+
+[05/02/2024 09:28] 0xd4n1el
+Yes
+
+
+[05/02/2024 09:28] davies_0212
+Got it. But, `ETH, WETH` lockers get `lpETH` not by 1 to 1. Right?
+
+
+[05/02/2024 09:29] 0xd4n1el
+They do get 1 to 1 conversion (up to maybe 1 wei precision)
+
+
+[05/02/2024 09:32] davies_0212
+Before converting all ETH to `lpETH`, no extra `lpETH` is added to `PrelaunchPoints`?
+
+
+[05/02/2024 09:33] uaarrr
+the functions with   `` onlyAfterDate(    startClaimDate    ) `` modifier can be executed only after 82 years ??
+
+
+[05/02/2024 09:35] bbl4de.xyz
+Check the `convertAllETH()` function it's updated there
+
+
+[05/02/2024 09:35] uaarrr
+i see this state variable setted  in constructor() , is there another place this state variable is modified with another value ?
+
+
+[05/02/2024 09:36] 0xd4n1el
+It is not intended, but it could happen
+
+
+[05/02/2024 09:36] uaarrr
+oh ok
+
+
+[05/02/2024 09:38] davies_0212
+Thanks.
+
+
+[05/02/2024 09:49] davies_0212
+@0xd4n1el Points is related to locking time?
+
+
+[05/02/2024 09:50] 0xd4n1el
+Yes, points are calculated in hourly basis on locked time
+
+
+[05/02/2024 09:52] davies_0212
+When could it happen?
+
+
+[05/02/2024 09:53] davies_0212
+And at that time, what about `WETH, weETH, ezETH, rsETH, rswETH, uniETH, pufETH`? I mean their rates after swap.
+
+
+[05/02/2024 09:55] 0xd4n1el
+ETH to lpETH is always 1 to 1, so rates are 1 to 1 after swap
+
+
+[05/02/2024 09:55] .justuzair
+no i mean I get the point, but how do you suppose we test it??
+
+
+[05/02/2024 10:14] davies_0212
+Before converting all ETH to lpETH, when could extra `lpETH` be added to `PrelaunchPoints`? And by whom?
+
+
+[05/02/2024 10:48] 0xd4n1el
+Someone could send lpETH directly to the contract, but not us
+
+
+[05/02/2024 10:49] 0xd4n1el
+You can see the hardhat tests to have an idea
+
+
+[05/02/2024 10:50] liffidmonky
+is the owner a multi-sig?
+
+
+[05/02/2024 10:57] moeid3
+where is the doc bot ?
+
+
+[05/02/2024 10:58] 0xpopeye
+https://discord.com/channels/810916927919620096/1234489629848240161/1235320389760979054
+
+
+[05/02/2024 11:29] davies_0212
+Any users can mint `lpETH` directly, not through `PrelaunchPoints`?
+
+
+[05/02/2024 11:32] 0xd4n1el
+Yes
+
+
+[05/02/2024 11:34] davies_0212
+So, locking is only for points?
+
+
+[05/02/2024 11:35] 0xd4n1el
+Yes, and you commit your tokens to be converted to lpETH
+
+
+[05/02/2024 12:42] davies_0212
+Where can I see the function `UniswapV3Feature.sellTokenForEthToUniswapV3()`?
+
+
+[05/02/2024 12:52] 0xd4n1el
+Look in 0x protocol github
+
+
+[05/02/2024 12:54] davies_0212
+Thanks.
+
+
+[05/02/2024 12:54] itsmetechjay
+You can tag @Docs Wolf in any public or private thread to ask it a question.
+
+
+[05/02/2024 13:36] alaga
+Hi @Tenet @0xd4n1el , what does 0x API mean?
+
+
+[05/02/2024 13:37] zhuyingqiuhua
+https://0x.org/docs/ You can see their docs
+
+{Embed}
+https://0x.org/docs/
+Welcome to 0x | 0x Docs
+This is your launchpad to learn about 0x - Trusted exchange infrastructure for the internet
+Code4rena - ARCHIVE-Q2-2024 - loop-may01 [1234489629848240161].txt_Files/0x-social-card-A8A19.jpg
+
+
+[05/02/2024 13:38] alaga
+Thanks ser
+
+
+[05/02/2024 17:10] .0xsecuri
+Hi @0xd4n1el, how can one create their own referral code?
+
+
+[05/02/2024 17:24] 0xd4n1el
+This is done via a signature and stored in a Backend. Base points are verifiable via Blockchain events but Referral points are trusted to the Backend
+
+
+[05/02/2024 17:31] 0xd4n1el
+It will be after deployment
+
+
+[05/02/2024 17:53] krisp6347
+@0xd4n1el, which function of the [0x exchangeProxy](https://etherscan.io/address/0xdef1c0ded9bec7f1a1670819833240f027b25eff#code) is expected to be called? My understanding was that it should be transformERC20(), but when I checked the 0x exchangeProxy on Etherscan, I didn't see such a function. Could you please clarify how the project is expected to work with 0x?
+
+{Embed}
+https://etherscan.io/address/0xdef1c0ded9bec7f1a1670819833240f027b25eff
+0x: Exchange Proxy | Address 0xdef1c0ded9bec7f1a1670819833240f027b2...
+The Contract Address 0xdef1c0ded9bec7f1a1670819833240f027b25eff page allows users to view the source code, transactions, balances, and analytics for the contract address. Users can also interact and make transactions to the contract directly on Etherscan.
+Code4rena - ARCHIVE-Q2-2024 - loop-may01 [1234489629848240161].txt_Files/og-F493A.jpg
+
+
+[05/02/2024 18:07] 0xd4n1el
+Please check 0x protocol github, you will find the implementation there easily
+
+
+[05/03/2024 02:29] zhuyingqiuhua
+https://openchain.xyz/trace/ethereum/0x44c624edea7288285814009a4401511a7dcc590ccc172e9121d0338fd579f3da This is a tx using exchangeProxy. Wish to help you understand.
+
+{Embed}
+https://openchain.xyz/trace/ethereum/0x44c624edea7288285814009a4401511a7dcc590ccc172e9121d0338fd579f3da
+Transaction Tracer
+View and trace EVM transactions
+Code4rena - ARCHIVE-Q2-2024 - loop-may01 [1234489629848240161].txt_Files/tracer-A97BB.png
+
+
+[05/03/2024 02:33] zhuyingqiuhua
+https://openchain.xyz/trace/ethereum/0x605ca5e93028219f65d9dcf4452ee7af6408859bf02ed5e56ba38075c403dc67 And this.
+
+{Embed}
+https://openchain.xyz/trace/ethereum/0x605ca5e93028219f65d9dcf4452ee7af6408859bf02ed5e56ba38075c403dc67
+Transaction Tracer
+View and trace EVM transactions
+Code4rena - ARCHIVE-Q2-2024 - loop-may01 [1234489629848240161].txt_Files/tracer-A97BB.png
+
+
+[05/03/2024 04:17] krisp6347
+Thanks @zhuying, it helped a lot!
+
+
+[05/03/2024 04:39] 0x11singh99
+are issues from previous audits fixed in the current codebase ?
+
+
+[05/03/2024 04:40] 0xdimo
+looks like they are, yes
+
+
+[05/03/2024 04:48] ironsidesec
+is lpETH aand ETH are always 1:1 like WETH-ETH
+or depends on assets/shares like erc4626 ?
+
+
+[05/03/2024 06:27] vikqaz
+lpETH and ETH 1:1 upto 1 wei precision. thats what I understood so far
+
+{Reactions}
+👍 
+
+[05/03/2024 06:35] bbl4de.xyz
+Yeah that's what d4n1el said https://discord.com/channels/810916927919620096/1234489629848240161/1235530080655249419
+
+
+[05/03/2024 06:48] 0xl3vi
+@Docs Wolf what is startclaimdate and loopactivation?
+
+
+[05/03/2024 07:16] 0xfox_
+you gotta ask in a thread
+
+
+[05/03/2024 07:16] 0xl3vi
+Oh ok
+
+
+[05/03/2024 07:32] vikqaz
+@Tenet  @0xd4n1el What about the source code of lpETH and lpETHVault?
+
+{Reactions}
+👍🏻 
+
+[05/03/2024 07:33] bbl4de.xyz
+It's not in scope, so we should assume it's safe
+
+
+[05/03/2024 07:34] vikqaz
+The thing is that, protocol is gonna say that we are audited. But up to what extent/scope, no one knows. I do remember what happened to Woofi.
+
+
+[05/03/2024 07:35] vikqaz
+@bbl4de
+
+
+[05/03/2024 07:36] bbl4de.xyz
+Yeah of course, I'm not saying it shouldn't be looked at. Rather reminding that it's not in scope -  there is plenty of people who don't read the contest description 😅
+
+
+[05/03/2024 07:37] vikqaz
+🙂
+
+
+[05/03/2024 07:38] vikqaz
+@Tenet @0xd4n1el will lpEthVault be an ERC20?
+
+
+[05/03/2024 08:04] bbl4de.xyz
+I'm not a sponsor haha, but I'd suggest you analyze the convertAllETH() function. Maybe it'll help to understand these.
+
+
+[05/03/2024 08:04] krisp6347
+ahh, I see sorry about that 😄
+
+{Reactions}
+🤐 
+
+[05/03/2024 08:05] krisp6347
+@0xd4n1el What is the purpose of `totalSupply` and `totalLpETH` and what exactly should they track?
+
+
+[05/03/2024 09:13] 0xfox_
+@0xd4n1el 
+I have a question regarding this section of the code4rena readme:
+"After these 7 days the owner can call convertAllETH, that converts all ETH in the contract for lpETH. This conversion has the timestamp startClaimDate. The conversion for LRTs happens on each claim by using 0x API. This is triggered by each user."
+Am i correct in my understanding that the ETH to lpETH conversion is initiated by the `PrelaunchPoints` owner and happens for all users while the deposited LRTs are converted to lpETH on an individual basis whenever a user makes a claim for lpETH?
+
+
+[05/03/2024 09:38] 0xd4n1el
+Probably will be an ERC4626 or something very similar
+
+
+[05/03/2024 09:41] 0xd4n1el
+totalSupply tracks all the ETH/WETH deposited and totalLpETH is the amount received after convertAllETH fort further lpETH distribution
+
+{Reactions}
+thankyou 
+
+[05/03/2024 09:43] 0xd4n1el
+Yes, that's it. Since there is no swap when converting lpETH to ETH, we decided to do all the conversion at once. On the other hand, for LRTs there is a swap, so to not take big slippage, we let the users do the swap (they set slippage parameters on the frontend) to ETH which then gets cnverted into lpETH
+
+{Reactions}
+🙏 
+
+[05/03/2024 11:19] .0xsecuri
+Hey @0xd4n1el, could you please check my private thread? I'm having a hard time understanding something, thanks in advance!
+
+{Reactions}
+👍 
+
+[05/03/2024 11:38] sathish9098kumar
+Is totalSupply and totalLpETH values equal ?
+
+
+[05/03/2024 11:38] sathish9098kumar
+@0xd4n1el
+
+
+[05/03/2024 11:40] 0xd4n1el
+Not necessarily, if you send ETH to the contract directly then totalLpETH will be bigger
+
+{Reactions}
+👍 
+
+[05/03/2024 12:31] vahdrak1
+For the owner, can he call the convertAllETH function unlimited times?
+
+
+[05/03/2024 12:34] bbl4de.xyz
+No, it's protected with the onlyBeforeDate(startClaimDate) modifier and startClaimDate is set to block.timestamp during function execution, so it's impossible to call it again.
+
+{Reactions}
+thankyou 
+
+[05/03/2024 12:45] kartoonjoy (pinned)
+🚨 Wardens, please **utilize the @Docs Wolf in a __public__ or __private__ thread** to answer any of your more basic questions or concerns. https://discord.com/channels/810916927919620096/1235320389760979054/1235320391019401366
+
+We want to allow the sponsor to have more room to answer the more complex questions.
+
+Thank you!
+
+{Reactions}
+👍🏻 (3) 
+
+[05/03/2024 12:49] kartoonjoy
+Pinned a message.
+
+
+[05/03/2024 13:12] _3doc_
+@Docs Wolf wen quiet times?
+
+{Reactions}
+eyeses (4) 
+
+[05/03/2024 13:16] kartoonjoy
+LOL. Now ask the 🐺 that in a thread
+
+{Reactions}
+🙉 
+
+[05/03/2024 14:08] Deleted User
+Hi @0xd4n1el , which case is that the user sent ETH to this contract ?
+
+
+[05/03/2024 14:11] 0xd4n1el
+Just by mistake, if a user sends ETH to the contract he looses it but we recover it and give it to other depositors
+
+
+[05/03/2024 14:12] 0xd4n1el
+Users should use the payable functions to deposit ETH
+
+
+[05/03/2024 15:37] sathish9098kumar
+Hi when deposit Weth the totalSupply increased . How this works when withdraw Weth ? because withdraw only checks token == ETH.
+
+
+[05/03/2024 15:43] jaimegm_
+When depositing WETH, the withdraw function within WETH is invoked (i.e. WETH.withdraw(_amount)). This will convert WETH into ETH and transfer it into PrelaunchPoints contract. So the contract will receive ETH
+
+{Reactions}
+👍 
+
+[05/03/2024 16:01] Deleted User
+where do points calculate?
+
+
+[05/03/2024 17:24] 0xd4n1el
+They are calculated offchain based on Locked and Withdraw events
+
+
+[05/03/2024 17:45] evokid
+By the way, very interesting concept I like it ✨
+
+
+[05/03/2024 18:10] pashap9990
+can we lock rsETH in PreLaunchPoints contract?
+or eETH and ezETH?
+is it possible?
+
+
+[05/03/2024 18:58] gumgumzum
+It should be possible for rsETH, ezETH and weETH according to the contest README
+
+
+[05/03/2024 19:35] pashap9990
+tnx
+
+
+[05/03/2024 20:14] 0xloscar01
+@0xd4n1el Do users get extra points if they claim and stake lpETH? (using `claimAndStake` function)
+
+
+[05/03/2024 21:07] mladenov0603
+Is there any documentation about 0x api and how percentage in `claim` function is calculated?
+
+
+[05/04/2024 00:55] zhuyingqiuhua
+https://0x.org/docs/
+
+{Embed}
+https://0x.org/docs/
+Welcome to 0x | 0x Docs
+This is your launchpad to learn about 0x - Trusted exchange infrastructure for the internet
+Code4rena - ARCHIVE-Q2-2024 - loop-may01 [1234489629848240161].txt_Files/0x-social-card-A8A19.jpg
+
+
+[05/04/2024 02:23] baldur_6
+I want to start a bounty program for my lost wallet seeds. Filled a form in website. Any admin available to show me the way?
+Thanks for your help
+
+
+[05/04/2024 05:15] Deleted User
+What is the use of referal here ?
+
+
+[05/04/2024 05:51] mgnfy_view
+What is 
+```javascript
+address public constant ETH = 0xEeeeeEeeeeEe..
+```
+
+
+[05/04/2024 05:51] mgnfy_view
+Is this a dummy value?
+
+
+[05/04/2024 06:03] vikqaz
+a user can generate a referral link from the frontend, when someone `lockETH` with the referral link then a certain % of points will be awarded to the referrer
+
+{Reactions}
+👍🏼 
+
+[05/04/2024 07:13] bbl4de.xyz
+https://etherscan.io/address/0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE
+
+{Embed}
+https://etherscan.io/address/0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE
+Null: 0xeee...eee | Address 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeE...
+The Address 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE page allows users to view transactions, balances, token holdings and transfers of ERC-20, ERC-721 and ERC-1155 (NFT) tokens, and analytics.
+Code4rena - ARCHIVE-Q2-2024 - loop-may01 [1234489629848240161].txt_Files/og-F493A.jpg
+
+
+[05/04/2024 07:45] pashap9990
+when user want to claim for another token except ETH u at first call 0x api for get path and another data?
+
+
+[05/04/2024 09:08] 0xd4n1el
+No, points are only based on locked tokens
+
+
+[05/04/2024 09:09] 0xd4n1el
+You can find 0x API docs easily, and percentage is just to claim a part of your lpETH when LRTs are deposited. Just in case you have big deposits and want to swap in several txs
+
+
+[05/04/2024 09:10] 0xd4n1el
+Yes, please check the hardhat tests on an example on this
+
+
+[05/04/2024 09:10] pashap9990
+tnx
+
+
+[05/04/2024 11:06] pashap9990
+can we have a private chat?
+
+
+[05/04/2024 11:08] dyoff
+Can you give us lpETH implementation
+
+
+[05/04/2024 11:13] 0xd4n1el
+Not yet because there will be another challenge for it. You should think about it as a wrapper 1 to 1 to ETH, like WETH
+
+
+[05/04/2024 11:14] 0xd4n1el
+You can create a private chat in this channel
+
+
+[05/04/2024 11:14] 0xd4n1el
+Please avoid PMs
+
+
+[05/04/2024 13:04] wanziskata
+there would be only one instance of this contract deployed, which would be done so by the protocol owners/devs, right?
+
+
+[05/04/2024 14:43] 0xd4n1el
+Yes, exactly
+
+{Reactions}
+❤️ 
+
+[05/05/2024 12:23] cholakovv
+@0xd4n1el when loopActivation is set, this marks the end of the 1st epoch and when startClaimDate is set it marks the start of the 2nd epoch, right? and the gap is the 7 days where users cannot deposit and just withdraw
+
+
+[05/05/2024 13:33] steadyman.
+Can users only get points for locking their own tokens? Are there no other benefits when making a claim?
+
+
+[05/05/2024 13:44] cholakovv
+the user gets extra rewards when calling claimAndStake, bc they're staking their claimed lpETH into the Loop vault, but when calling claim() I don't think there is some extra reward or something, so the user just get lpETH, but @0xd4n1el can better confirm this
+
+
+[05/05/2024 13:46] cholakovv
+about this, what an user can do with his claimed lpETH if he decide not to stake?
+
+
+[05/05/2024 15:51] bbl4de.xyz
+Yeah that's right
+
+{Reactions}
+👍 (2) 
+
+[05/05/2024 17:26] m4k2
+Hi, how points rewards are handled in the backend ?
+
+
+[05/05/2024 17:32] vikqaz
+out of scope. nothing to worry about
+
+
+[05/05/2024 17:32] vikqaz
+can trade on DEX
+
+{Reactions}
+👍 
+
+[05/05/2024 21:04] 0xd4n1el
+They get points by locking their tokens that will be transformed into an Aridrop later
+
+
+[05/05/2024 21:05] 0xd4n1el
+They just get the Airdrop, but their lpETH does not get extra rewards
+
+{Reactions}
+👍 
+
+[05/05/2024 21:05] 0xd4n1el
+Via the Locked and Withdraw events, these should be reflectivg the correct information
+
+
+[05/05/2024 21:24] 0xd4n1el
+Those functions are external and permisionless, so anyone can call them
+
+
+[05/05/2024 21:25] marshall1624
+Did I understand correctly that one contract = 1 owner?
+
+
+[05/05/2024 21:25] 0xd4n1el
+There is only one contract and one owner
+
+
+[05/05/2024 21:26] marshall1624
+Okay, thank you
+
+
+[05/05/2024 23:18] marshall1624
+@0xd4n1el Can we assume that when the user deploys the contract, he will just send the tokens to the contract address?
+
+
+[05/05/2024 23:19] 0xd4n1el
+The contract is deployed only once
+
+
+[05/05/2024 23:19] 0xd4n1el
+And by us, not the users
+
+
+[05/05/2024 23:21] 0xd4n1el
+If they send ETH directly to the contract, they loose it (we give it to other users, or users can have it for free when claiming)
+
+
+[05/05/2024 23:22] marshall1624
+But if you deploy the contract, then msg.sender is set to your address, how can the user use the functions?
+
+
+[05/06/2024 00:10] 4b69
+@0xd4n1el in the recoverERC20 function how do you track how much erc20 tokens a user sent mistakenly to the protocol?
+
+
+[05/06/2024 03:55] _karanel
+If the token is in the allow list it cannot be withdrawn by the owner. Other tokens can be withdrawn. You can check which and how much erc20 tokens the contract holds through etherscan.
+
+
+[05/06/2024 06:24] 0xd4n1el
+Exactly
+
+
+[05/06/2024 06:25] 0xd4n1el
+Msg.sender is the address of the user that interacts with the contract
+
+
+[05/06/2024 08:27] asui0944
+Are lpETH and lpETHVault contracts created by loop protocol? and where can i get their addresses?
+
+
+[05/06/2024 08:31] bbl4de.xyz
+It's not in scope for this audit and we're not supposed to have their implementation as it's going to be another audit => https://discord.com/channels/810916927919620096/1234489629848240161/1236274578452647936
+
+
+[05/06/2024 08:32] bbl4de.xyz
+But d4n1el said we should treat the `deposit` function like deposit function for erc4626 vault
+
+
+[05/06/2024 11:34] brandio
+How does exchange proxy work? Does it just forward call data to the router or does it do some additional logic in the process?
+
+
+[05/06/2024 11:36] gumgumzum
+It looks for the contract to call based on the selector and forwards it entirely to that contract as far as I understand
+
+
+[05/06/2024 11:37] brandio
+Oh okay. Thanks
+
+
+[05/06/2024 11:40] gumgumzum
+In this case it's either the UniswapV3 or the TransformERC20 features
+
+
+[05/06/2024 12:14] kirobrejka_80610
+hi guys! These are supposed to be the whitelisted tokens right?
+
+{Attachments}
+Code4rena - ARCHIVE-Q2-2024 - loop-may01 [1234489629848240161].txt_Files/image-5B2FB.png
+
+
+[05/06/2024 12:15] bbl4de.xyz
+yes
+
+{Reactions}
+🫡 
+
+[05/06/2024 15:27] 0xbtk
+@0xd4n1el check pt please
+
+{Reactions}
+👍 
+
+[05/06/2024 17:14] ivanfitro
+Which kind of data there are in function claimAndStake(,,,bytes calldata _data)?
+
+
+[05/06/2024 17:36] bbl4de.xyz
+Return data from the front end call to 0x API, look at PrelaunchPoints0x.test.ts file
+
+{Reactions}
+👍 (3) 
+
+[05/07/2024 04:24] p2m8
+hi, did anyone manage to get the hardhat tests to pass? if so would you be so kind to share your config? i’m struggling on that part only the WETH test passes. thanks!!
+
+
+[05/07/2024 04:33] p2m8
+my issue is that for other tokens the exchange is going to be uniswap v3 but the selector returned is still the one for TRANSFORM
+
+
+[05/07/2024 04:34] p2m8
+also struggling to understand why the claim token is ETH in all cases in that test file although it should be WETH in case we use uniswap v3?
+
+
+[05/07/2024 04:42] p2m8
+like it works if I use data as transformERC20 data even when uniswapv3 is the only exchange, but I do not think this is the way it should be?
+
+
+[05/07/2024 07:15] 0xd4n1el
+We will use the selector as the reference to pass the data, so you can ignore the source parameter in the API response
+
+{Reactions}
+👍 
+
+[05/07/2024 07:18] 0xd4n1el
+When you put ETH as output token on UniV3 0x adds an extra step to unwrap, that's why we pass ETH to the API call
+
+
+[05/07/2024 07:18] 0xd4n1el
+Depending on the selector, the encoded output token will be WETH or ETH though
+
+{Reactions}
+👍 
+
+[05/07/2024 10:03] p2m8
+that’s very clear thank you very much
+
+
+[05/07/2024 14:35] krisp6347
+@0xd4n1el where does the bytes data come from for the 0x API? Do users need to prepare it themselves?
+
+
+[05/07/2024 15:21] 0xd4n1el
+We prepare it in our frontend
+
+{Reactions}
+👍 
+
+[05/07/2024 18:24] honour_d_dev
+does the airdrop allocated to a user depend on the quantity of their lpETH? @0xd4n1el
+
+
+[05/07/2024 20:59] 0xd4n1el
+No, the airdrop depends on the locked amount as long as it is not withdrawed
+
+
+[05/08/2024 10:08] vikqaz
+My only point of concern is the implementation of lpETH token contract. Implementation of proper access controls, who is gonna be the owner a multisig or a single signer, because eventually all the ETHERS are swiftly transferred to the lpETH contract
+
+
+[05/08/2024 10:10] mgnfy_view
+Got anything so far anyone?
+
+
+[05/08/2024 10:11] _karanel
+I believe the lpETH and lpETHVault contracts will be in scope for the 2nd part of this audit in end of May
+
+
+[05/08/2024 10:25] asui0944
+can you please provide an example data(when calling claim func) or send link to the frontend that will prepare the data?
+
+
+[05/08/2024 10:39] 0xd4n1el
+You can check that on the hardhat tests
+
+
+[05/08/2024 11:16] asui0944
+when swap is done through fillQuote using exchange proxy, every token is always swapped to eth? in both uniswap and transformERC20?
+
+
+[05/08/2024 11:28] honour_d_dev
+Yeah
+
+
+[05/08/2024 12:22] bbl4de.xyz
+Yes although when going through uniswap it is first swapped to WETH and then unwrapped to ETH.
+
+
+[05/08/2024 12:59] evokid
+supposed to..
+
+{Reactions}
+chefskiss 
+
+[05/08/2024 13:27] asui0944
+from 0x docs to quote an example -- ```
+
+curl https://api.0x.org/swap/v1/quote?buyToken=0x6b175474e89094c44da98b954eedeac495271d0f&sellToken=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2&sellAmount=100000000000000000  --header '0x-api-key: <API_KEY>' ``` it say run this but even after adding 0x api key it still returns "No API key provided. Can anyone help why i get this error?
+
+
+[05/08/2024 13:30] gumgumzum
+You need to replace <API_KEY> with your own I believe
+
+
+[05/08/2024 13:31] asui0944
+yup i did it but its still giving the same error msg
+
+
+[05/08/2024 13:32] gumgumzum
+Weird, let me try it
+
+{Reactions}
+👍 
+
+[05/08/2024 13:38] gumgumzum
+Works for me
+
+
+[05/08/2024 13:42] asui0944
+what could be the problem here
+mine even says ```--header: command not found```
+
+
+[05/08/2024 13:42] gumgumzum
+Can you try with -H instead ?
+
+
+[05/08/2024 13:44] asui0944
+same
+
+
+[05/08/2024 13:45] asui0944
+```[1] 29659
+[2] 29660
+--H: command not found
+[2]+  Done                    sellToken=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2
+asuilinux@asui:~$ {
+  "message":"No API key provided. Please visit https://0x.org/pricing to get a free API key or sign up to a paid plan",
+  "request_id":"7ca13832b9b14334bde1367db8930f61"
+}
+[1]+  Done                    curl https://api.0x.org/swap/v1/quote?buyToken=0x6b175474e89094c44da98b954eedeac495271d0f```
+this is always returned
+
+
+[05/08/2024 13:46] gumgumzum
+Ok ok
+
+
+[05/08/2024 13:46] gumgumzum
+Try this `curl "https://api.0x.org/swap/v1/quote?buyToken=0x6b175474e89094c44da98b954eedeac495271d0f&sellToken=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2&sellAmount=100000000000000000" -H "0x-api-key: <API_KEY>"` (added double quotes to the URL)
+
+{Reactions}
+👍 
+
+[05/08/2024 13:52] asui0944
+it works
+thankyou so much sir:10_10:
+
+{Reactions}
+hi5 
+
+[05/08/2024 13:53] gumgumzum
+You're welcome, glad it helped
+
+{Reactions}
+thankyou 
+
+[05/08/2024 18:06] chonkov
+Hey, guys, when I try to run the "PrelaunchPoints0x.test.ts" script I get the follwoing error:  `WrongSelector("0x415565b0")`. If I comment out all the tokens, without WETH, the script works fine but throws this error for all of the other tokens
+
+
+[05/08/2024 18:47] nfmelendez
+the selector changes with the amount
+
+
+[05/08/2024 18:47] nfmelendez
+i mean the quote of 0x change the selector  for different range of amount
+
+
+[05/08/2024 18:48] nfmelendez
+try 100 of amount, and try 10000000 of amount, you will see
+
+
+[05/08/2024 18:57] chonkov
+You mean that the specified amount as a function argument will change the function selector(first 4 bytes)?
+
+
+[05/08/2024 19:18] nfmelendez
+yes play with the sellAmount variable, is a x0 thing
+
+
+[05/08/2024 19:52] chonkov
+I changed the values and played around with them and still got the same error. @nfmelendez, would you mind providing me with a link for 0x
+
+
+[05/08/2024 20:02] C4
+**🚨 AUDIT ALERT**
+
+@🐺Wardens The **Loop** audit is now closed! Huge thanks to everyone who participated 🔍, whether you submitted a finding or not.
+
+What's next: The sponsor team and judge will review the findings over the next couple of weeks. Keep an eye on #📢・c4-updates for regular updates on how the audit is progressing through awarding 🤑🏆, judging 🧑‍⚖️ and reporting 📜. Feel free to ping a Contest-Admin if you have questions along the way!
+
+{Reactions}
+🤘 (6) 
+
+[05/08/2024 21:52] 0xpopeye
+389 submissions 👀
+
+{Reactions}
+chefskiss 
+
+[05/08/2024 22:04] afriauditor
+Lolz thats significantly more than the sloc in the contract
+
+{Reactions}
+😅 (4) 😆 (2) 
+
+[05/09/2024 06:11] paprikrumplikas
+wow. Where do you see this?
+
+
+[05/09/2024 06:18] cholakovv
+backstage
+
+
+[05/09/2024 07:31] moeid3
+How do you find out
+
+
+[05/09/2024 10:40] 0xumarkhatab
+hey there , what is the criteria for a backstage role ?
+
+
+[05/09/2024 11:11] brandio
+2 or more valid high finding or something like that
+
+{Reactions}
+❌ 
+
+[05/09/2024 11:47] 0xsorrynotsorry
+https://docs.code4rena.com/roles/certified-contributors/sr-backstage-wardens
+
+{Reactions}
+✅ (2) 
+
+[05/09/2024 11:53] ustas.eth
+People didn't bother to look at the 0x functions
+
+
+[05/09/2024 11:56] moeid3
+why
+
+
+[05/09/2024 11:58] evokid
+out of scope except for the SWAP API as it should be related to contest in scope contracts..
+
+
+[05/09/2024 12:01] moeid3
+if it has any bugs in that, then i think the owner turns on the emergency mode
+
+
+[05/09/2024 12:04] evokid
+true, mentioned on contest page as known for the sponsor, so not sure how it will be in scope, add to that it's not within contest contracts scope.
+
+
+[05/09/2024 13:28] _karanel
+Did anyone find anything?
+
+{Reactions}
+😂 (2) 
+
+[05/09/2024 15:02] nave765
+Hi im pretty curious about this line in _claim function.
+```claimedAmount = userStake.mulDiv(totalLpETH, totalSupply);```
+Why do we have to calculate the percentage and proportion of claimedAmount based on totalLpETH and totalSupply? Why don't we just use ```balances[msg.sender][_token]``` as a value to be transfered?
+
+
+[05/09/2024 15:02] nave765
+Thanks
+
+
+[05/09/2024 15:31] paprikrumplikas
+I think because ETH sent directly to the contract before claim goes live is distributed this way.
+
+https://discord.com/channels/810916927919620096/1234489629848240161/1236820045728841871
+
+
+[05/09/2024 16:42] nfmelendez
+yes that line, what do you think about precision loss there. is in favor of the user or the protocol?
+
+
+[05/09/2024 18:04] vikqaz
+its in unfairly in favour of the claimer/attacker
+
+
+[05/09/2024 18:05] vikqaz
+2 Highs, 2 Meds, 3 Lows, 1 Centralization Risk ❤️‍🔥
+
+
+[05/09/2024 18:09] _karanel
+Damn
+
+
+[05/09/2024 18:10] _karanel
+But according to the natspec it gets forever locked in the contract, which is untrue.
+
+
+[05/09/2024 20:03] paprikrumplikas
+Yes, the natspec is incorrect for sure
+
+
+[05/09/2024 20:09] paprikrumplikas
+Damn
+
+
+[05/09/2024 21:54] nfmelendez
+Could you explain why?
+
+
+[05/10/2024 00:32] nave765
+Thank you for your answer but, could you please give me an example, and forward explanation for this?
+
+
+[05/10/2024 02:11] nave765
+```claimedAmount = userStake.mulDiv(totalLpETH, totalSupply);```
+based on the math utils in OZ, it require third parameter right for denominator. What will be the value if third parameter isn't filled in ?
+
+
+[05/10/2024 05:56] arkan2245
+`userStake`, `totalLpETH` and `totalSupply` are the 3 params
+
+
+[05/10/2024 05:59] nave765
+Oh, Thanks
+
+
+[05/10/2024 18:41] iwildsniperi
+Only those?
+
+
+[05/11/2024 06:44] novamanbg
+I think you missed 3 criticals
+
+{Reactions}
+chefskiss (5) 
+
+[05/11/2024 18:21] vikqaz
+yup
+
+
+[05/16/2024 06:22] alymurtazamemon
+what the hack is this! after confirming they are validating similar issue
+
+{Attachments}
+Code4rena - ARCHIVE-Q2-2024 - loop-may01 [1234489629848240161].txt_Files/Screenshot_2024-05-16_at_11.21.05_AM-B3930.png
+
+{Reactions}
+😂 (2) 
+
+[05/16/2024 06:22] alymurtazamemon
+@0xd4n1el
+
+
+[05/16/2024 06:25] moeid3
+yeah I submitted that too
+this path broke an invariant that they mentioned
+if they don't care about it why they mentioned it?
+
+
+[05/16/2024 06:32] alymurtazamemon
+you are right, I learned a lesson!
+
+
+[05/16/2024 09:30] _karanel
+More lpETH is only rewarded to people who locked ETH/WETH. Remaining users don't get extra lpETH.
+
+
+[05/16/2024 09:31] moeid3
+oops you missed one case
+
+
+[05/16/2024 09:32] _karanel
+which one?
+
+
+[05/16/2024 09:32] _karanel
+dm?
+
+
+[05/16/2024 09:36] moeid3
+that's long 
+wait for the report i suggest
+
+
+[05/16/2024 09:39] _karanel
+ah dang
+
+
+[05/16/2024 10:06] kirobrejka_80610
+how many valid issues for now?(dont have backstage😁 )
+
+{Reactions}
+🔥 
+
+[05/16/2024 10:06] kirobrejka_80610
+and how many reports of this issue
+
+{Reactions}
+👀 (2) 
+
+[05/16/2024 11:46] 4b69
+https://discord.com/channels/810916927919620096/1234489629848240161/1238190046956228718
+
+{Reactions}
+💀 (3) 
+
+[05/16/2024 11:49] kirobrejka_80610
+Not that! I mean really how many valid issues and expect answer from people with backstage😭
+
+
+[05/18/2024 08:11] kirobrejka_80610
+.
+
+
+[05/20/2024 14:10] mosharaf
+Wen?
+
+
+[05/20/2024 16:25] _karanel
+no clue
+
+
+[05/23/2024 16:13] mylifechangefast.eth_70767
+
+
+{Attachments}
+Code4rena - ARCHIVE-Q2-2024 - loop-may01 [1234489629848240161].txt_Files/if-not-now-when-act-now-FA31F.mp4
+
+{Reactions}
+😭 (5) 
+
+[05/25/2024 11:43] 0xumarkhatab
+
+
+{Attachments}
+Code4rena - ARCHIVE-Q2-2024 - loop-may01 [1234489629848240161].txt_Files/image-E69E8.png
+
+
+[05/25/2024 14:29] iwildsniperi
+bruh this is copyrighted by me
+
+{Reactions}
+😂 (6) 
+
+[05/26/2024 00:18] paprikrumplikas
+Is there a way to check my own submissions?
+
+
+[05/26/2024 02:38] .nnez
+Get SR role.
+
+
+[05/26/2024 08:11] paprikrumplikas
+How do I do that?
+
+
+[05/26/2024 09:06] .nnez
+https://docs.code4rena.com/roles/certified-contributors/sr-backstage-wardens
+
+{Embed}
+https://docs.code4rena.com/roles/certified-contributors/sr-backstage-wardens
+Security Researcher role (formerly +backstage wardens) | Code4rena
+
+{Reactions}
+👍 
+
+[05/28/2024 05:20] parthmandale
+@0xd4n1el  ser I asked you the same question, and you said it's not an issue. But still, I submitted it in QA repost as - LOW. 
+
+And now I don't even have backstage, So my issue is going to get invalidated even if it is getting validated for others SR?
+
+
+[05/28/2024 05:22] parthmandale
+@kartoonjoy | C4🎇🎇   @Jay | C4  ser now what to do in this case?
+
+
+[05/28/2024 05:33] 0xsorrynotsorry
+It wouldn't be the case.
+If your issue in your QA report is actually a duplicate of a H/M submission, that would be upgraded by the judge.
+
+
+[05/28/2024 05:38] 0xumarkhatab
+sir how much time is anticipated for results ?
+
+
+[05/28/2024 05:40] 0xsorrynotsorry
+I have no idea tbh, it seems like it can anytime start PJQA
+
+
+[05/28/2024 05:42] 0xumarkhatab
+got it , it means all issues are evaluated already ?
+
+
+[05/28/2024 05:42] parthmandale
+@sorryNotsorry So now will that still be upgraded to H/M issue by judges?
+
+
+[05/28/2024 05:43] 0xumarkhatab
+maybe @alymurtazamemon would have his eyes on what amount of time will it take to announce the results ?
+
+
+[05/28/2024 05:47] 0xsorrynotsorry
+I didn't follow it, but it gave me the impression considering the small codebase and time spent unless the sponsors are busy.
+
+
+[05/28/2024 05:48] 0xsorrynotsorry
+This should be the case
+
+
+[05/28/2024 05:54] 0xumarkhatab
+yeah
+
+
+[05/29/2024 10:49] vikqaz
+immensely awaited for results
+
+{Reactions}
+this 10_10 (2) 
+
+[05/29/2024 11:24] 0xumarkhatab
+will they be out today tho ?
+
+
+[05/29/2024 12:33] vikqaz
+ahm
+
+
+[05/31/2024 06:52] 0xumarkhatab
+got any updates guys ?
+
+
+[05/31/2024 07:26] vikqaz
+whats going on with judging?
+
+
+[06/01/2024 06:32] 0xumarkhatab
++ 1
+
+
+[06/01/2024 09:14] vikqaz
+Compared to the sLOC, results have taken too long
+
+
+[06/01/2024 10:32] bbl4de.xyz
+Sloc completely doesn't matter, I don't have the SR role but if there's a lot of submissions and escalations it's not really the judge's fault.
+
+
+[06/01/2024 10:51] gumgumzum
+Still ongoing, didn't get to PJQA yet. Judge was handling DYAD as well, so this should go faster now since DYAD is done.
+
+
+[06/01/2024 11:03] vikqaz
+who said this is judge's fault?
+
+
+[06/01/2024 11:04] bbl4de.xyz
+Yeah sorry, I'm used to guys that are rudely showing their impatience and hating on the judges. That's not you, my bad 🙌
+
+
+[06/01/2024 11:05] vikqaz
+chill bro and cheers
+
+
+[06/01/2024 11:05] 0xumarkhatab
+chill and ask judges to complete fast 😂
+
+{Reactions}
+😂 (2) 
+
+[06/01/2024 11:06] vikqaz
+showing impatience for results is natural for noobs like me. but criticising judges is unprofessional.
+
+{Reactions}
+💯 
+
+[06/01/2024 11:06] bbl4de.xyz
+Some guys are really acting like judges are their workers lol
+
+
+[06/01/2024 11:06] 0xumarkhatab
+don't forget to count me in too
+
+{Reactions}
+😂 
+
+[06/02/2024 06:12] 0xumarkhatab
+Any ETA ?
+
+
+[06/03/2024 20:15] vikqaz
+Any update on the results? @Jay | C4
+
+
+[06/03/2024 21:14] _karanel
+Def coming in the next 5 days, cause the next part of LoopFi will be starting :4739_Skeletor:
+
+
+[06/05/2024 20:08] haxatron1
+Seems like everyone is going to be a hunter and gatherer 🤣
+
+
+[06/05/2024 21:32] _karanel
+How many uniques?
+
+
+[06/06/2024 18:15] kirobrejka_80610
+As far as I know, 8
+
+{Reactions}
+😯 (3) 
+
+[06/06/2024 18:16] kirobrejka_80610
+Which is kinda insane for 300 nLOC but it is what it is
+
+
+[06/06/2024 18:17] bbl4de.xyz
+Damn that's crazy I expected something more like with DYAD
+
+
+[06/06/2024 18:19] kirobrejka_80610
+Literally expected 1 vulnerability😭💀
+
+{Reactions}
+4739_Skeletor 
+
+[06/06/2024 18:19] bbl4de.xyz
+Yeah well I did report a few but I was sure that there will be max 1 unique
+
+
+[06/06/2024 18:20] bbl4de.xyz
+Crit : Kerosene instead of kerosine 🫣
+
+{Reactions}
+😂 (5) 
+
+[06/07/2024 13:05] ivanfitro
+Is it possible that my submission doesn't appear in the repository?
+
+
+[06/07/2024 22:15] 0xsandy
+Has the PJQA started yet?
+
+
+[06/08/2024 15:53] vikqaz
+awaited for results
+
+
+[06/08/2024 20:47] bbl4de.xyz
+At this point I think it'll be announced around the time when the big loop contest will start
+
+{Reactions}
+🫡 (2) 
+
+[06/08/2024 21:47] _karanel
+Yeah looks like it got postponed by a month
+
+
+[06/09/2024 09:21] bbl4de.xyz
+Well, then we wait
+
+
+[06/11/2024 11:33] bbl4de.xyz
+Bored ?? You can go for one of TWO >1mln$ contests in the mean time 😄
+
+{Reactions}
+😂 
+
+[06/11/2024 11:54] fastchecker_27
+what? Can you teach me about that?
+
+
+[06/12/2024 13:37] vikqaz
+still awaited for results
+
+
+[06/12/2024 13:37] vikqaz
+it took a lot longer than usual
+
+
+[06/12/2024 14:16] jovemjeune
+I also think the  same way.I'm not sure but I feel like It will probably be explained a few weeks ago than 2 July.
+
+
+[06/12/2024 21:33] itsmetechjay
+🤑 🎉  Awards for **LoopFi**:
+
+$471.42 USDC » @0xnev 
+$456.25 USDC » @0xrex 
+$386.09 USDC » @0x04bytes 
+$386.09 USDC » @0xBugSlayer 
+$386.09 USDC » @0xJoyBoy03 
+$386.09 USDC » @DMoore 
+$386.09 USDC » @evokid 
+$386.09 USDC » @Greed 
+$386.09 USDC » @kirkeelee 
+$386.09 USDC » @Krace 
+$386.09 USDC » Sajjad  
+$386.09 USDC » @gumgumzum 
+$386.09 USDC » @novamanbg 
+$386.09 USDC » @sandy 
+$386.09 USDC » @cskar0v 
+$386.09 USDC » @y4y 
+$386.09 USDC » @yovchev_yoan 
+$225.00 USDC » @caglankaan 
+$213.33 USDC » Pechenite (@bozho and @radev_sw) 
+$213.33 USDC » @The Fabled 
+$213.33 USDC » @d3e4 
+$213.33 USDC » @samuraii77 
+$149.54 USDC » @pamprikrumplikas 
+$142.22 USDC » @Rhaydden 
+$142.22 USDC » @web3er 
+$71.11 USDC » @0xSecuri 
+$71.11 USDC » @Bigsam 
+$71.11 USDC » SBSecurity (@blckhv and @Slavcheww) 
+$71.11 USDC » @Topmark 
+$71.11 USDC » @XDZIBECX 
+$71.11 USDC » @ZanyBonzy 
+$71.11 USDC » @_karanel 
+$71.11 USDC » @bbl4de 
+$71.11 USDC » @btk 
+$71.11 USDC » @nfmelendez 
+$71.11 USDC » @petarP1998 
+$71.11 USDC » @shaflow2 
+$70.15 USDC » @SpicyMeatball 
+$70.15 USDC » @peanuts 
+
+🏁 Findings summary
+--------------------------------------—
+High risk findings: 1 unique (35 total)
+Gas reports: 1 (Best: caglankaan)*
+QA reports: 16 (Best: pamprikrumplikas)
+
+Top Hunters & Gatherers: Greed, novamanbg, 0xrex, gumgumzum, Krace, y4y, DMoore, 0x04bytes, 0xnev, 0xBugSlayer, sldtyenj12, yovchev_yoan, 0xJoyBoy03, sandy, Evo, Kirkeelee, Sajjad
+
+**Although no gas pool was specified for this audit, it did receive 2 Gas report submissions, and the Loop team found them sufficiently valuable that they chose to add a $225 gas pool.*
+
+Awards will be distributed on Polygon within the next week. Congratulations all!  💸 💸 💸
+
+*Note: If you participated in this audit and don’t see your name on this list, please wait until the report is published and the findings repo is made public to check on your submissions.*
+
+{Reactions}
+🔥 (11) 
+
+[06/13/2024 02:25] 0xkamakura
+Hello, who should I ask for help if I have questions about the final result?
+
+
+[06/13/2024 06:03] moeid3
+i can't find my unacceptable reports in the repo
+i want to know what happened to those reports
+
+
+[06/13/2024 10:58] mgf15
+i can't find my submissions on the repo ?? any idea why @Jay | C4
+
+
+[06/13/2024 11:21] shaflow_
+they may in validation repo
+
+
+[06/14/2024 00:03] sungyuk1
+Whats the validation repo? Do you have a link?
+
+
+[06/14/2024 02:56] shaflow_
+It seems to be private and requires obtaining SR first
+
+
+[06/18/2024 09:06] vikqaz
+In how many days approx the validation repo is expected to be public?
+
+
+[06/18/2024 12:42] thebrittfactor
+It's now public, sorry for the delay! 🙂 
+[Validation Repo](https://github.com/code-423n4/2024-05-loop-validation)
+
+{Reactions}
+🫡 
+
+[06/19/2024 06:11] vikqaz
+Will my comments on the closed issues be considered? I think there is some mistake in judging.
+
+
+[06/19/2024 06:21] vikqaz
+@thebrittfactor | C4 Why am I not get paid for these? Am I missing something?
+
+{Attachments}
+Code4rena - ARCHIVE-Q2-2024 - loop-may01 [1234489629848240161].txt_Files/Screenshot_2024-06-19_at_11.20.50_AM-44DB7.png
+
+
+[06/19/2024 06:25] vikqaz
+@thebrittfactor | C4 My below submissions are also valid and duplicate of valid ones, I think by mistake these are not accepted?
+
+My Submissions:
+https://github.com/code-423n4/2024-05-loop-validation/issues/308
+https://github.com/code-423n4/2024-05-loop-validation/issues/311
+
+Duplicating Valid Submissions:
+https://github.com/code-423n4/2024-05-loop-validation/issues/391
+https://github.com/code-423n4/2024-05-loop-validation/issues/341
+
+
+[06/19/2024 06:54] vikqaz
+@__141345__ @AkshaySrivastav @sorryNotsorry
+
+
+[06/19/2024 17:51] thebrittfactor
+Created a private thread.
+
+
+[06/24/2024 22:20] vikqaz
+Hey guys,
+
+I am posting this just to have an expert opinion if I am right or wrong.
+
+My submission [#308](https://github.com/code-423n4/2024-05-loop-validation/issues/308) is invalidated despite being a duplicate of below valid submission [#82](https://github.com/code-423n4/2024-05-loop-findings/issues/82)
+
+What am I missing guys? any help will be appreciated. Thanks.
+
+
+[06/27/2024 22:57] itsmetechjay
+ℹ️ This channel is pending archive.   As a result, any private threads will be permanently deleted on Friday, 05 July 2024>. Please make sure to grab anything you might need before then.
+
+
+[07/01/2024 10:19] tezeoffor
+What will be the next LoopFi audit be focused on??
+
+
+[07/01/2024 14:23] bbl4de.xyz
+https://discord.com/channels/810916927919620096/1235706013252849767/1235717511090278481
+
+
+[07/05/2024 21:47] itsmetechjay
+ℹ️ Reminder: this channel will be deleted after 24 hours.
+
+
+==============================================================
+Exported 342 message(s)
+==============================================================
